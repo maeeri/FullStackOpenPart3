@@ -1,0 +1,45 @@
+body {
+  margin: 0 auto;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+h2 {
+  background-color: lightblue;
+  color: blue;
+  text-align: center;
+}
+
+.phonebook {
+  background-color: aliceblue;
+  width: 50%;
+  margin: 0 auto;
+  padding: 3%;
+}
+
+.success {
+  color: green;
+  background-color: lightgrey;
+  font-size: 25;
+  border: 2px solid green;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.error {
+  color: red;
+  background-color: lightgrey;
+  font-size: 25;
+  border: 2px solid red;
+  border-radius: 5px;
+  padding: 20px;
+}
