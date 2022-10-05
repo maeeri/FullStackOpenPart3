@@ -20,38 +20,11 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
 
-let people = []
-
-/*[
-    { 
-        id: 1,
-        name: 'Arto Hellas', 
-        number: '040-123456' 
-    },
-    { 
-        id: 2,
-        name: 'Ada Lovelace', 
-        number: '39-44-5323523' 
-    },
-    { 
-        id: 3,
-        name: 'Dan Abramov', 
-        number: '12-43-234345' 
-    },
-    { 
-        id: 4,
-        name: 'Mary Poppendieck', 
-        number: '39-23-6423122' 
-    }]
-
-const generateId = () => {
-    return Math.floor(Math.random() * 25000)
-}*/
-
+/*
 app.get('/info', (req, res) => {
     const date = new Date()
-    res.send(`<p>Phonebook has info for a number of people</p><p>${date}</p>`)
-})
+    res.send(`<p>Phonebook has info for ${} people</p><p>${date}</p>`)
+})*/
 
 app.get('/api/people/', (req, res) => {
     Person.find({}).then(people => {
@@ -68,14 +41,6 @@ app.get('/api/people/:id', (req, res) => {
     Person.findById(req.params.id).then(person => {
         res.json(person)
     })
-
-    /*const id = Number(req.params.id)
-    const person = persons.find(p => p.id === id)
-    if (person) {
-        res.json(person)
-    } else {
-        res.status(404).end()
-    }*/
 })
 
 app.delete('/api/people/:id', (req, res) => {
@@ -86,7 +51,7 @@ app.delete('/api/people/:id', (req, res) => {
 
 app.post('/api/people', (req, res) => {
     const body = req.body
-    //console.log(body)
+    console.log(body)
 
     if (body.name === undefined || body.number === undefined) {
         res.status(400).json({
@@ -94,19 +59,13 @@ app.post('/api/people', (req, res) => {
         })
     }
 
-    const person = {
+    const person = new Person({
         name: body.name,
         number: body.number
-    }
+    })
 
+    person.save().then(sPerson => {
+        res.json(sPerson)
+    })
 
-    if (people.every(p => p.name !== person.name )) {
-        person.save().then(sPerson => {
-            res.json(sPerson)
-        })
-    } else {
-        res.status(400).json({
-            error: 'person already in the phonebook'
-        })
-    }
 })

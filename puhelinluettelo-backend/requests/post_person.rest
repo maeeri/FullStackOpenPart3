@@ -1,5 +1,5 @@
-POST http://localhost:3000/api/people
-Content-Type: 'application/json'
+POST http://localhost:3001/api/people
+Content-Type: application/json
 
 {
     "name": "Maija Mehiläinen",
