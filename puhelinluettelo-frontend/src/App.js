@@ -16,7 +16,7 @@ const App = () => {
 
   useEffect(() => {
     getPersons()
-  }, [message])
+  }, [])
 
 
   const addPerson = (event) => {
@@ -27,11 +27,17 @@ const App = () => {
       name: newName,
       number: newNumber
       }
-      personService.create(personObject)
-      setPersons(persons.concat(personObject))
-      setMessage(`${personObject.name} added`)
-        errorTimeOut()
-      console.log(personObject)
+      personService
+        .create(personObject)
+        .then(personObject => {
+          setPersons(persons.concat(personObject))
+          setMessage(`${personObject.name} added`)
+          errorTimeOut()
+        })
+        .catch(error => {
+          handleError(error.response.data.error)
+          setError(false)
+        })
       getPersons()
     }
     else {
@@ -61,6 +67,7 @@ const App = () => {
         })
       } else {
         handleError(`${person.name} has already been removed from the phonebook`)
+        setError(false)
       }
       
     }
@@ -83,10 +90,9 @@ const App = () => {
   }
 
   const handleError = msg => {
-    handleErrorChange()
+    setError(true)
     setMessage(msg)
     errorTimeOut()
-    handleErrorChange()
   }
 
   const handlePersonChange = (event) => {
@@ -115,13 +121,10 @@ const App = () => {
         errorTimeOut()
       } else {
         handleError(`${person.name} has already been removed from the phonebook`)
+        setError(false)
       }
     }
     getPersons()
-  }
-
-  const handleErrorChange = () => {
-    setError(!error)
   }
 
   const showPersons = Object.values(persons).filter(person => 

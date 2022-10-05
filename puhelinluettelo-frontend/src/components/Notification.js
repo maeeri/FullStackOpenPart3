@@ -5,7 +5,6 @@ const Notification = ({type, message}) => {
 
     else if (type === true)
     {
-        console.log('error found')
         return (
             <div className="error">
                 {message}
