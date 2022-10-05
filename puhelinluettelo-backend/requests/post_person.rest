@@ -2,6 +2,6 @@ POST http://localhost:3001/api/people
 Content-Type: application/json
 
 {
-    "name": "Maija Mehiläinen",
-    "number": 455454121
+    "name": "Ville Vallaton",
+    "number": 5454612235
 }

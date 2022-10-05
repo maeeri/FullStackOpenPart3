@@ -48,17 +48,21 @@ const App = () => {
         name: newName,
         number: newNumber
         }
+
       const person = persons.find(person => person.name === newName)
-      personService
+
+      if (person !== (undefined || null)) {
+        personService
         .update(person.id, personObject)
         .then(returnedPersons => {
           setPersons(returnedPersons)
           setMessage(`${person.name} updated`)
           errorTimeOut()
         })
-        .catch(() => {
-          handleError(`${person.name} has already been removed from the phonebook`)
-        })
+      } else {
+        handleError(`${person.name} has already been removed from the phonebook`)
+      }
+      
     }
     setNewName('')
     getPersons()
@@ -101,16 +105,17 @@ const App = () => {
     let person = persons.find(person => person.id === id)
     if(window.confirm(`Are you sure you want to delete ${person.name}?`))
     {
-      personService.deleteEntry(id)
-      .then(returnedPersons => {
-        setPersons(persons.concat(returnedPersons))
-        console.log(returnedPersons)
-      })
-      setMessage(`${person.name} deleted`)
-      errorTimeOut()
-      .catch(() => {
+      if (person !== (undefined || null)) {
+        personService.deleteEntry(id)
+        .then(returnedPersons => {
+          setPersons(persons.concat(returnedPersons))
+          console.log(returnedPersons)
+        })
+        setMessage(`${person.name} deleted`)
+        errorTimeOut()
+      } else {
         handleError(`${person.name} has already been removed from the phonebook`)
-      })
+      }
     }
     getPersons()
   }
@@ -119,7 +124,7 @@ const App = () => {
     setError(!error)
   }
 
-  const showPersons = persons.filter(person => 
+  const showPersons = Object.values(persons).filter(person => 
     typeof person.name === 'string' && typeof search === 'string' 
       ? person.name.toLowerCase().includes(search.toLowerCase()) 
       : '')
